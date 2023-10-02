@@ -1,4 +1,4 @@
-"""
+	"""
 	A program that would display a menu
 	------ Main Menu ------
 	1. Multiplication
@@ -13,114 +13,94 @@
 """
 #import the necessary library for clearing the screen
 from os import system
-
-#define the modules for the math operation
-def multiply(a:int,b:int)->int: 
-	return a*b
-def divide(a:int,b:int)->float: 
-	return a/b
-def add(a:int,b:int)->int: 
-	return a+b
-def subtract(a:int,b:int)->int: 
-	return a-b
+names:list = []
+def printmenu()->None:
+	menu:tuple = (
+		"------- Main Menu -------",
+		"1. Add Name",
+		"2. Find Name",
+		"3. Delete Name",
+		"4. Update Name",
+		"5. Display All Names",
+		"0. Quit/Exit",
+		"-------------------------"
+	)
+	[print(item) for item in menu]
 	
-#lambda of the operation
-product = lambda a,b: a*b
-quotient = lambda a,b: a/b
-sum = lambda a,b: a+b
-difference = lambda a,b: a-b
 
+def addname()->None:
+	name:str = input("Enter name to add in the list: ")
+	names.append(name)
+	print(f"Successfully added {name} in the list")
 	
-	
-#create an input utility module that facilitate the input
-def getinput()->int:
-	a:int = int(input("Enter First Value:"))
-	b:int = int(input("Enter Second Value:"))
-	return a,b
-
-#module to display the menuoptions
-def displaymenu()->None:
-	system("cls")
-	menuitems:list = [
-		"------ Main Menu ------",
-		"1. Multiplication",
-		"2. Division",
-		"3. Addition",
-		"4. Subtraction",
-		"0. Quit/End",
-		"-----------------------"
-	]
-	#using list comprehension
-	[print(item) for item in menuitems] 
-
-#module main
-def main()->None:
-	#define the option variable
-	option:int = -1 # set default option to -1
-	while option != 0:
-		displaymenu()
-		option = int(input("Enter Option(0..4):"))
-		#
-		match option:
-			case 1:
-				system("cls")
-				print("Multiply two(2) integers")
-				a,b = getinput()
-				#print("\nThe product of %d and %d is %d" % (a,b,multiply(a,b)))
-				print("\nThe product of %d and %d is %d" % (a,b,product(a,b)))
-			case 2:
-				system("cls")
-				print("Divide two(2) integers")
-				a,b = getinput()
-				#print("\nThe quotient of %d and %d is %f" % (a,b,divide(a,b)))
-				print("\nThe quotient of %d and %d is %f" % (a,b,quotient(a,b)))
-			case 3:
-				system("cls")
-				print("Add two(2) integers")
-				a,b = getinput()
-				#print("\nThe sum of %d and %d is %d" % (a,b,add(a,b)))
-				print("\nThe sum of %d and %d is %d" % (a,b,sum(a,b)))
-			case 4:
-				system("cls")
-				print("Subtract two(2) integers")
-				a,b = getinput()
-				#print("\nThe difference of %d and %d is %d" % (a,b,subtract(a,b)))
-				print("\nThe difference of %d and %d is %d" % (a,b,difference(a,b)))
-			case 0: print("Program Terminated")
-			case _: print("Invalid Input")
+def findname()->None:
+	name:str = input("Enter name to search in the list: ")
+	if name in names:
+		print(f"{name} is FOUND in the list")
+	else:
+		print(f"{name} is NOT FOUND in the list")
 		
-		#
-		"""
-		if option == 0: print("Program Terminated")
-		elif option == 1: 
+def deletename()->None:
+	name:str = input("Enter name to delete in the list: ")
+	if name in names:
+		print(f"{name} is FOUND in the list")
+		opt:str = input(f"Are you really really sure to delete {name} in the list? (y/n)")
+		opt = opt[0].upper()
+		if opt == "Y":
+			names.remove(name)
+			print(f"Successfully removed {name} from the list")
+	else:
+		print(f"{name} is NOT FOUND in the list")
+		
+def updatename()->None:
+	name:str = input("Enter name to update in the list: ")
+	if name in names:
+		print(f"{name} is FOUND in the list")
+		opt:str = input(f"Do you really really want to update {name} in the list? (y/n)")
+		opt = opt[0].upper()
+		if opt == "Y":
+			newName:str = input("Enter new name: ")
+			index:int = names.index(name)
+			names[index] = newName
+			print(f"Successfully update {name} to {newName} in the list")
+	else:
+		print(f"{name} is NOT FOUND in the list")
+
+def displayAllNames()->None:
+	if len(names) <= 0:
+		print("List is empty!")
+	else:
+		print("Names in the list are:")
+		[print(name) for name in names]
+	
+def terminate()->None:
+	print("Program Ended Bye Bye!")
+
+
+def main()->None:
+	menuModules:dict = {
+			1:addname,
+			2:findname,
+			3:deletename,
+			4:updatename,
+			5:displayAllNames,
+			0:terminate,
+		}
+	option:int = -1
+	while option != 0:
+		system("cls")
+		printmenu()
+		option = int(input("Enter Option(0..5): "))
+		if option >= 0 and option <= 5:
 			system("cls")
-			print("Multiply two(2) integers")
-			a,b = getinput()
-			print("\nThe product of %d and %d is %d" % (a,b,multiply(a,b)))
-		elif option == 2: 
-			system("cls")
-			print("Divide two(2) integers")
-			a,b = getinput()
-			print("\nThe quotient of %d and %d is %f" % (a,b,divide(a,b)))
-		elif option == 3: 
-			system("cls")
-			print("Add two(2) integers")
-			a,b = getinput()
-			print("\nThe sum of %d and %d is %d" % (a,b,add(a,b)))
-		elif option == 4: 
-			system("cls")
-			print("Subtract two(2) integers")
-			a,b = getinput()
-			print("\nThe difference of %d and %d is %d" % (a,b,subtract(a,b)))
-		"""
+			menuModules.get(option)()
+		else:
+			print("Invalid Option!")
 		input("Press any key to continue...")
+	
 
-#main module trigger
-if __name__=="__main__":
+if __name__ =="__main__":
 	main()
-
-
-
 
 
 
