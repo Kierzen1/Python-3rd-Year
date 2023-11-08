@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html>
+<style>
+<title>Dashboard</title>
+<head>
+	<h2>Please Log-in</h2>
+</head>
+<body>
+	<ul>
+		<li><a href="#home">Home</a></li>
+		<li><a href="#news">News</a></li>
+		<li><a href="#contact">Contact</a></li>
+		<li><a href="#about">About</a></li>
+	</ul>
+	<input name = "username" placeholder = "Username:">
+	<input name = "password" placeholder = "Password:">
+	<button name = "loginbutton">Log-In</button>
+</body>
+</html>
