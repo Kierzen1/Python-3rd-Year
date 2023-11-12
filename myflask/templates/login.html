@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content%}
+		<div class = "w3-card-4 w3-animate-top w3-round-xlarge" style = "width:40%;margin:auto">
+			<div class = "w3-container w3-blue">
+				<h3>LOGIN</h3>
+			</div>
+			{% with messages = get_flashed_messages() %}
+				{% if messages %}
+					{% for message in messages%}
+						<div class="w3-panel w3-orange">{{ message }}</div>
+					{% endfor %}
+				{% endif%}
+			{% endwith%}
+			
+			
+			
+			<form action ="/login" method = "post">
+				<div class = "w3-container w3-padding">
+					<label><b>USERNAME</b></label>
+					<input type="text" name ="username" class = "w3-input">
+					<label><b>PASSWORD</b></label>
+					<input type = "password" name = "password" class = "w3-input">
+					<input type = "submit" value="LOGIN" class = "w3-button w3-blue wr-right"><br><br>
+				</div>
+			</form>
+{% endblock %}

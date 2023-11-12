@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content%}
+	<table class = "w3-table-all">
+		{%for student in data %}
+			<tr>
+				{% for key,value in student.items()%}
+						<td>{{ value }}</td>
+				{%endfor%}
+			<tr>
+		{%endfor%}
+	</table>
+{% endblock %}
